@@ -18,14 +18,16 @@ export const jwtCheck = auth({
   tokenSigningAlg: "RS256",
 });
 
+
 export const jwtParse = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const { authorization } = req.headers;
-
+  // console.log(authorization)
   if (!authorization || !authorization.startsWith("Bearer")) {
+    console.log("error is here")
     return res.sendStatus(401);
   }
 
