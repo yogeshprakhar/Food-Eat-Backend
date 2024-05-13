@@ -3,8 +3,9 @@ import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
 import myUserRoute from "./routes/MyUserRoute";
-import myRestaurantRoute from "./routes/MyRestaurant"
-import {v2 as cloudinary} from "cloudinary"
+import myRestaurantRoute from "./routes/MyRestaurant";
+import restaurantRoute from "./routes/RestaurantRoute";
+import { v2 as cloudinary } from "cloudinary";
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING as string)
@@ -23,11 +24,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.get("/health", async (req: Request, res: Response) => {
-  res.send({message:"Health OK!"})
+  res.send({ message: "Health OK!" });
 });
 
 app.use("/api/my/user", myUserRoute);
-app.use("/api/my/restaurant",myRestaurantRoute)
+app.use("/api/my/restaurant", myRestaurantRoute);
+app.use("/api/restaurant", restaurantRoute);
 
 app.listen(7000, () => {
   console.log("server started at localhost 7000");
